@@ -5,20 +5,20 @@ describe('plain object', function() {
 	};
 
 	it('should pass for smaller object', function() {
-		expect(testedObject).to.containSubset({
+		expect(testedObject).to.containSubsetInOrder({
 			a: 'b'
 		});
 	});
 
 	it('should pass for same object', function() {
-		expect(testedObject).to.containSubset({
+		expect(testedObject).to.containSubsetInOrder({
 			a: 'b',
 			c: 'd'
 		});
 	});
 
 	it('should pass for similar, but not the same object', function() {
-		expect(testedObject).to.not.containSubset({
+		expect(testedObject).to.not.containSubsetInOrder({
 			a: 'notB',
 			c: 'd'
 		});
@@ -38,7 +38,7 @@ describe('complex object', function() {
 	};
 
 	it('should pass for smaller object', function() {
-		expect(testedObject).to.containSubset({
+		expect(testedObject).to.containSubsetInOrder({
 			a: 'b',
 			e: {
 				foo: 'bar'
@@ -47,7 +47,7 @@ describe('complex object', function() {
 	});
 
 	it('should pass for smaller object', function() {
-		expect(testedObject).to.containSubset({
+		expect(testedObject).to.containSubsetInOrder({
 			e: {
 				foo: 'bar',
 				baz: {
@@ -58,7 +58,7 @@ describe('complex object', function() {
 	});
 
 	it('should pass for same object', function() {
-		expect(testedObject).to.containSubset({
+		expect(testedObject).to.containSubsetInOrder({
 			a: 'b',
 			c: 'd',
 			e: {
@@ -71,7 +71,7 @@ describe('complex object', function() {
 	});
 
 	it('should pass for similar, but not the same object', function() {
-		expect(testedObject).to.not.containSubset({
+		expect(testedObject).to.not.containSubsetInOrder({
 			e: {
 				foo: 'bar',
 				baz: {
@@ -94,7 +94,7 @@ describe('circular objects', function() {
 	});
 
 	it('should contain subdocument', function() {
-		expect(object).to.containSubset({
+		expect(object).to.containSubsetInOrder({
 			arr: [
 				{arr: []},
 				{arr: []},
@@ -107,7 +107,7 @@ describe('circular objects', function() {
 	});
 
 	it('should not contain similar object', function() {
-		expect(object).to.not.containSubset({
+		expect(object).to.not.containSubsetInOrder({
 			arr: [
 				{arr: ['just random field']},
 				{arr: []},
@@ -122,47 +122,47 @@ describe('circular objects', function() {
 
 describe('comparison of non objects', function () {
 	it('should fail if actual subset is null', function () {
-		expect(null).to.not.containSubset({a: 1});
+		expect(null).to.not.containSubsetInOrder({a: 1});
 	});
 
 	it('should fail if expected subset is not a object', function () {
-		expect({a: 1}).to.not.containSubset(null);
+		expect({a: 1}).to.not.containSubsetInOrder(null);
 	});
 
 	it('should not fail for same non-object (string) variables', function () {
-		expect('string').to.containSubset('string');
+		expect('string').to.containSubsetInOrder('string');
 	});
 });
 
 describe('assert style of test', function () {
 	it('should find subset', function () {
 		var assert = require('chai').assert;
-		assert.containSubset({a: 1, b: 2}, {a: 1});
+		assert.containSubsetInOrder({a: 1, b: 2}, {a: 1});
 	});
 });
 
 describe('comparison of dates', function() {
 	it('should pass for the same date', function() {
-		expect(new Date('2015-11-30')).to.containSubset(new Date('2015-11-30'));
+		expect(new Date('2015-11-30')).to.containSubsetInOrder(new Date('2015-11-30'));
 	});
 
 	it('should pass for the same date if nested', function() {
-		expect({a: new Date('2015-11-30')}).to.containSubset({a: new Date('2015-11-30')});
+		expect({a: new Date('2015-11-30')}).to.containSubsetInOrder({a: new Date('2015-11-30')});
 	});
 
 	it('should fail for a different date', function() {
-		expect(new Date('2015-11-30')).to.not.containSubset(new Date('2012-02-22'));
+		expect(new Date('2015-11-30')).to.not.containSubsetInOrder(new Date('2012-02-22'));
 	});
 
 	it('should fail for a different date if nested', function() {
-		expect({a: new Date('2015-11-30')}).to.not.containSubset({a: new Date('2012-02-22')});
+		expect({a: new Date('2015-11-30')}).to.not.containSubsetInOrder({a: new Date('2012-02-22')});
 	});
 
 	it('should fail for invalid expected date', function() {
-		expect(new Date('2015-11-30')).to.not.containSubset(new Date('not valid date'));
+		expect(new Date('2015-11-30')).to.not.containSubsetInOrder(new Date('not valid date'));
 	});
 
 	it('should fail for invalid actual date', function() {
-		expect(new Date('not valid actual date')).to.not.containSubset(new Date('not valid expected date'));
+		expect(new Date('not valid actual date')).to.not.containSubsetInOrder(new Date('not valid expected date'));
 	});
 });

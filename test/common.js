@@ -1,4 +1,4 @@
 var chai = require('chai');
-var chaiSubset = require('../lib/chai-subset');
+var chaiSubsetInOrder = require('../lib/chai-subset-in-order');
 global.expect = chai.expect;
-chai.use(chaiSubset);
+chai.use(chaiSubsetInOrder);
