@@ -1,5 +1,8 @@
 "containSubsetInOrder" object properties matcher for [Chai](http://chaijs.com/) assertion library
 
+It works in similar way as [chai-subset](https://www.npmjs.com/package/chai-subset).
+However in arrays it must be the same order to pass an assertion.
+
 Installation
 ===========
 
@@ -8,68 +11,19 @@ Installation
 Usage
 =====
 
-common.js
 ```js
-var chai = require('chai');
-var chaiSubset = require('chai-subset-in-order');
-chai.use(chaiSubset);
-```
+const chai = require('chai');
+const chaiSubsetInOrder = require('chai-subset-in-order');
 
-in your spec.js
-```js
-var obj = {
-	a: 'b',
-	c: 'd',
-	e: {
-		foo: 'bar',
-		baz: {
-			qux: 'quux'
-		}
-	}
-};
-	
-expect(obj).to.containSubsetInOrder({
-	a: 'b',
-	e: {
-		baz: {
-			qux: 'quux'
-		}
-	}
-});
-//or with 'not'
-expect(obj).to.not.containSubsetInOrder({
-	g: 'whatever'
-});
-```
+chai.use(chaiSubsetInOrder);
+const expect = chai.expect;
 
-Also works good with arrays and `should` interface
-```js
-var list = [{a: 'a', b: 'b'}, {v: 'f', d: {z: 'g'}}];
-
-list.should.containSubsetInOrder([{a:'a'}]); //Assertion error is not thrown
-list.should.containSubsetInOrder([{a:'a',  b: 'b'}]); //Assertion error is not thrown
-
-list.should.containSubsetInOrder([{a:'a', b: 'bd'}]);
-/*throws
-AssertionError: expected
-[
-    {
-        "a": "a",
-        "b": "b"
-    },
-    {
-        "v": "f",
-        "d": {
-            "z": "g"
-        }
-    }
-]
-to contain subset 
-[ { a: 'a', b: 'bd' } ]
-*/
-```
-
-and with `assert` interface
-```js
-assert.containSubsetInOrder({a: 1, b: 2}, {a: 1});
+expect({ foo: 2, bar: 3 }).to.containSubsetInOrder({ foo: 2 });
+expect({ foo: 2, bar: 3 }).to.containSubsetInOrder({ bar: 3 });
+expect({ foo: 2, bar: 3 }).to.containSubsetInOrder({ foo:2, bar: 3 });
+expect({ foo: 2, bar: 3 }).to.not.containSubsetInOrder({ foo: 5 });
+expect([{ foo: 123, bar: 456 }, { baz: 111 }]).to.containSubsetInOrder([{ foo: 123 }]);
+expect([{ foo: 123, bar: 456 }, { baz: 111 }]).to.containSubsetInOrder([{ bar: 456 }]);
+expect([{ foo: 123, bar: 456 }, { baz: 111 }]).to.containSubsetInOrder([{ foo: 123 }, { baz: 111 }]);
+expect([{ foo: 123, bar: 456 }, { baz: 111 }]).to.not.containSubsetInOrder([{ baz: 111 }, { foo: 123 }]);
 ```
