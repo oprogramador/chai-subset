@@ -222,7 +222,7 @@ describe('one object from array', function() {
       ]);
     });
 
-    it.skip('should pass for second object', function() {
+    it('should pass for second object', function() {
       expect(testedObject).to.containSubsetInOrder([
         {
           baz: 90,

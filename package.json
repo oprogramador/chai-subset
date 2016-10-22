@@ -5,6 +5,7 @@
   "main": "lib/chai-subset-in-order.js",
   "scripts": {
     "test": "istanbul cover _mocha",
+    "test-only-mocha": "mocha --recursive test",
     "coveralls": "cat ./coverage/lcov.info | coveralls"
   },
   "repository": {
