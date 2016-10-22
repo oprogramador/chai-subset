@@ -166,3 +166,39 @@ describe('comparison of dates', function() {
     expect(new Date('not valid actual date')).to.not.containSubsetInOrder(new Date('not valid expected date'));
   });
 });
+
+describe('order', function() {
+  describe('plain array', function() {
+    var testedObject = [
+      {
+        a: 3,
+        b: 90,
+      },
+      {
+        a: 90,
+      },
+    ];
+
+    it('should pass for correct order', function() {
+      expect(testedObject).to.containSubsetInOrder([
+        {
+          a: 3,
+        },
+        {
+          a: 90,
+        },
+      ]);
+    });
+
+    it('should not pass for incorrect order', function() {
+      expect(testedObject).to.not.containSubsetInOrder([
+        {
+          a: 90,
+        },
+        {
+          a: 3,
+        },
+      ]);
+    });
+  });
+});
