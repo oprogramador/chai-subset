@@ -167,66 +167,289 @@ describe('comparison of dates', function() {
   });
 });
 
-describe('order', function() {
-  describe('plain array', function() {
-    var testedObject = [
+describe('basic order', function() {
+  var testedObject = [
+    {
+      foo: 3,
+      bar: 90,
+    },
+    {
+      baz: 90,
+    },
+  ];
+
+  it('should pass for correct order', function() {
+    expect(testedObject).to.containSubsetInOrder([
       {
         foo: 3,
-        bar: 90,
       },
       {
         baz: 90,
       },
-    ];
+    ]);
+  });
 
-    it('should pass for correct order', function() {
-      expect(testedObject).to.containSubsetInOrder([
-        {
-          foo: 3,
-        },
-        {
-          baz: 90,
-        },
-      ]);
-    });
-
-    it('should not pass for incorrect order', function() {
-      expect(testedObject).to.not.containSubsetInOrder([
-        {
-          baz: 90,
-        },
-        {
-          foo: 3,
-        },
-      ]);
-    });
+  it('should not pass for incorrect order', function() {
+    expect(testedObject).to.not.containSubsetInOrder([
+      {
+        baz: 90,
+      },
+      {
+        foo: 3,
+      },
+    ]);
   });
 });
 
 describe('one object from array', function() {
-    var testedObject = [
+  var testedObject = [
+    {
+      foo: 3,
+      bar: 90,
+    },
+    {
+      baz: 200,
+    },
+  ];
+
+  it('should pass for partial first object with the first property', function() {
+    expect(testedObject).to.containSubsetInOrder([
+      {
+        foo: 3,
+      }
+    ]);
+  });
+
+  it('should pass for partial first object with the second property', function() {
+    expect(testedObject).to.containSubsetInOrder([
+      {
+        bar: 90,
+      }
+    ]);
+  });
+
+  it('should pass for the full first object', function() {
+    expect(testedObject).to.containSubsetInOrder([
+      {
+        foo: 3,
+        bar: 90,
+      }
+    ]);
+  });
+
+  it('should pass for the full second object', function() {
+    expect(testedObject).to.containSubsetInOrder([
+      {
+        baz: 200,
+      }
+    ]);
+  });
+
+  it('should not pass for the second object with changed value', function() {
+    expect(testedObject).to.not.containSubsetInOrder([
+      {
+        baz: 201,
+      }
+    ]);
+  });
+
+  it('should not pass for the second object with changed key', function() {
+    expect(testedObject).to.not.containSubsetInOrder([
+      {
+        baz1: 200,
+      }
+    ]);
+  });
+
+  it('should not pass for full first object containing additional key', function() {
+    expect(testedObject).to.not.containSubsetInOrder([
+      {
+        foo: 3,
+        bar: 90,
+        baz: 90,
+      },
+    ]);
+  });
+
+  it('should not pass for partial first object containing additional key', function() {
+    expect(testedObject).to.not.containSubsetInOrder([
+      {
+        foo: 3,
+        baz: 90,
+      },
+    ]);
+  });
+
+  it('should not pass for the second object containing additional key', function() {
+    expect(testedObject).to.not.containSubsetInOrder([
+      {
+        baz: 200,
+        foo: 200,
+      }
+    ]);
+  });
+});
+
+describe('many objects from array', function() {
+  var testedObject = [
+    {
+      foo: 3,
+      bar: 90,
+    },
+    {
+      foo: 9999,
+      bar1: 131313,
+    },
+    {
+      baz: 200,
+    },
+    {
+      baz2: 200,
+    },
+  ];
+
+  it('should pass when the expected array is the same like the given one', function() {
+    expect(testedObject).to.containSubsetInOrder([
       {
         foo: 3,
         bar: 90,
       },
       {
-        baz: 90,
+        foo: 9999,
+        bar1: 131313,
       },
-    ];
+      {
+        baz: 200,
+      },
+      {
+        baz2: 200,
+      },
+    ]);
+  });
 
-    it('should pass for first object', function() {
-      expect(testedObject).to.containSubsetInOrder([
-        {
-          foo: 3,
-        }
-      ]);
-    });
+  it('should pass when the expected array contains the first element from the given array', function() {
+    expect(testedObject).to.containSubsetInOrder([
+      {
+        foo: 3,
+        bar: 90,
+      },
+      {
+        foo: 9999,
+        bar1: 131313,
+      },
+    ]);
+  });
 
-    it('should pass for second object', function() {
-      expect(testedObject).to.containSubsetInOrder([
-        {
-          baz: 90,
-        }
-      ]);
-    });
+  it('should pass when the expected array contains the last element from the given array', function() {
+    expect(testedObject).to.containSubsetInOrder([
+      {
+        baz: 200,
+      },
+      {
+        baz2: 200,
+      },
+    ]);
+  });
+
+  it('should not pass when the expected array contains elements from the given array in incorrect order including the first element', function() {
+    expect(testedObject).to.not.containSubsetInOrder([
+      {
+        foo: 9999,
+        bar1: 131313,
+      },
+      {
+        foo: 3,
+        bar: 90,
+      },
+    ]);
+  });
+
+  it('should not pass when the expected array contains elements from the given array in incorrect order including the last element', function() {
+    expect(testedObject).to.not.containSubsetInOrder([
+      {
+        baz2: 200,
+      },
+      {
+        baz: 200,
+      },
+    ]);
+  });
+
+  it('should not pass when the expected array contains an additional element', function() {
+    expect(testedObject).to.not.containSubsetInOrder([
+      {
+        foo: 3,
+        bar: 90,
+      },
+      {
+        foo: 9999,
+        bar1: 131313,
+      },
+      {
+        'non-existent': 9999,
+      },
+    ]);
+  });
+
+  it('should not pass when an element of the expected array contains an additional key', function() {
+    expect(testedObject).to.not.containSubsetInOrder([
+      {
+        foo: 3,
+        bar: 90,
+      },
+      {
+        foo: 9999,
+        bar1: 131313,
+        'non-existent': 0,
+      },
+    ]);
+  });
+
+  it('should pass when the expected array contains not all keys', function() {
+    expect(testedObject).to.containSubsetInOrder([
+      {
+        foo: 3,
+      },
+      {
+        foo: 9999,
+      },
+    ]);
+  });
+
+  it('should pass when the expected array contains the same element multiple times', function() {
+    expect(testedObject).to.containSubsetInOrder([
+      {
+        foo: 3,
+      },
+      {
+        foo: 3,
+      },
+    ]);
+  });
+
+  it('should pass when the expected array contains only empty objects', function() {
+    expect(testedObject).to.containSubsetInOrder([
+      {
+      },
+      {
+      },
+    ]);
+  });
+
+  it('should pass when the expected array contains only empty objects in amount greater then size of the given array', function() {
+    expect(testedObject).to.containSubsetInOrder([
+      {
+      },
+      {
+      },
+      {
+      },
+      {
+      },
+      {
+      },
+      {
+      },
+    ]);
+  });
 });
