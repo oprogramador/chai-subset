@@ -1,6 +1,3 @@
-chai-subset-in-order [![npm version](https://badge.fury.io/js/chai-subset-in-order.svg)](https://badge.fury.io/js/chai-subset-in-order) [![Build Status](https://travis-ci.org/debitoor/chai-subset-in-order.svg?branch=master)](https://travis-ci.org/debitoor/chai-subset-in-order) [![devDependency Status](https://david-dm.org/debitoor/chai-subset-in-order/dev-status.svg)](https://david-dm.org/debitoor/chai-subset-in-order#info=devDependencies) [![Coverage Status](https://coveralls.io/repos/debitoor/chai-subset-in-order/badge.svg?service=github)](https://coveralls.io/github/debitoor/chai-subset-in-order) [![NSP Status](https://nodesecurity.io/orgs/debitoor/projects/eb6fec04-2b26-4462-b4ff-08d952da3065/badge)](https://nodesecurity.io/orgs/debitoor/projects/eb6fec04-2b26-4462-b4ff-08d952da3065)
-===========
-
 "containSubsetInOrder" object properties matcher for [Chai](http://chaijs.com/) assertion library
 
 Installation
