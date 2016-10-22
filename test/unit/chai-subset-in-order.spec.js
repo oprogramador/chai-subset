@@ -171,21 +171,21 @@ describe('order', function() {
   describe('plain array', function() {
     var testedObject = [
       {
-        a: 3,
-        b: 90,
+        foo: 3,
+        bar: 90,
       },
       {
-        a: 90,
+        baz: 90,
       },
     ];
 
     it('should pass for correct order', function() {
       expect(testedObject).to.containSubsetInOrder([
         {
-          a: 3,
+          foo: 3,
         },
         {
-          a: 90,
+          baz: 90,
         },
       ]);
     });
@@ -193,12 +193,40 @@ describe('order', function() {
     it('should not pass for incorrect order', function() {
       expect(testedObject).to.not.containSubsetInOrder([
         {
-          a: 90,
+          baz: 90,
         },
         {
-          a: 3,
+          foo: 3,
         },
       ]);
     });
   });
+});
+
+describe('one object from array', function() {
+    var testedObject = [
+      {
+        foo: 3,
+        bar: 90,
+      },
+      {
+        baz: 90,
+      },
+    ];
+
+    it('should pass for first object', function() {
+      expect(testedObject).to.containSubsetInOrder([
+        {
+          foo: 3,
+        }
+      ]);
+    });
+
+    it.skip('should pass for second object', function() {
+      expect(testedObject).to.containSubsetInOrder([
+        {
+          baz: 90,
+        }
+      ]);
+    });
 });
