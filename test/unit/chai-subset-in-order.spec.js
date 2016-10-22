@@ -454,4 +454,148 @@ describe('chai-subset-in-order', function() {
       ]);
     });
   });
+
+  describe('complex order', function() {
+    var testedObject = {
+      foo: 111,
+      bar: {
+        foo: 222,
+        bar: {
+          bar: {
+            foo: 333,
+            bar: 444,
+          },
+          baz: 555,
+        },
+        baz: 666,
+      },
+      baz: [
+        {
+          foo: 777,
+          bar: 888,
+        },
+        [
+          [
+            {
+              foo: 999,
+              bar: 1010,
+            },
+            2020,
+          ],
+          'lorem ipsum',
+        ],
+        null,
+        true,
+        false
+      ]
+    };
+
+    it('should pass for an object with the keys in the same order', function() {
+      expect(testedObject).to.containSubsetInOrder({
+        bar: {
+          foo: 222,
+          bar: {
+            bar: {
+              bar: 444,
+            },
+          },
+          baz: 666,
+        },
+      });
+    });
+
+    it('should pass for an object with the keys in a different order', function() {
+      expect(testedObject).to.containSubsetInOrder({
+        bar: {
+          bar: {
+            bar: {
+              bar: 444,
+            },
+          },
+          baz: 666,
+          foo: 222,
+        },
+      });
+    });
+
+    it('should pass for an array in correct order', function() {
+      expect(testedObject).to.containSubsetInOrder({
+        baz: [
+          {
+            foo: 777,
+            bar: 888,
+          },
+          [
+            [
+              {
+                foo: 999,
+              },
+              2020,
+            ],
+            'lorem ipsum',
+          ],
+        ],
+      });
+    });
+
+    it('should not pass for an array in incorrect order in the highest level', function() {
+      expect(testedObject).to.not.containSubsetInOrder({
+        baz: [
+          [
+            [
+              {
+                foo: 999,
+              },
+              2020,
+            ],
+            'lorem ipsum',
+          ],
+          {
+            foo: 777,
+            bar: 888,
+          },
+        ],
+      });
+    });
+
+    it('should not pass for an array in incorrect order in medium level', function() {
+      expect(testedObject).to.not.containSubsetInOrder({
+        baz: [
+          {
+            foo: 777,
+            bar: 888,
+          },
+          [
+            'lorem ipsum',
+            [
+              {
+                foo: 999,
+              },
+              2020,
+            ],
+          ],
+        ],
+      });
+    });
+
+    it('should not pass for an array in incorrect order in the lowest level', function() {
+      expect(testedObject).to.not.containSubsetInOrder({
+        baz: [
+          {
+            foo: 777,
+            bar: 888,
+          },
+          [
+            [
+              2020,
+              {
+                foo: 999,
+              },
+            ],
+            'lorem ipsum',
+          ],
+        ],
+      });
+    });
+  });
 });
