@@ -1,6 +1,18 @@
+sudo: false
 language: node_js
 node_js:
-  - stable
-  - 4
-sudo: false
+  - 8
+  - 10
+  - node
+deploy:
+  provider: npm
+  api_key: $NPM_TOKEN
+  email: $NPM_EMAIL
+  on:
+    branch: master
+  skip_cleanup: true
+notifications:
+  email:
+    on_success: never
+    on_failure: always
 after_success: "npm run coveralls"
