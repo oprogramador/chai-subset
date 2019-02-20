@@ -1,0 +1,7 @@
+{
+  "commitMessage": "[renovate] update all dependencies",
+  "groupName": "All",
+  "includeForks": true,
+  "labels": ["renovate"],
+  "rangeStrategy": "bump"
+}
