@@ -28,7 +28,7 @@
     "chai": "4.2.0",
     "coveralls": "3.0.3",
     "istanbul": "0.4.5",
-    "mocha": "6.0.1",
+    "mocha": "6.0.2",
     "mocha-eslint": "5.0.0"
   },
   "files": [
