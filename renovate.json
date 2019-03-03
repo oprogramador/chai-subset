@@ -1,7 +1,9 @@
 {
-  "commitMessage": "[renovate] update all dependencies",
-  "groupName": "All",
+  "commitMessagePrefix": "[renovate] ",
+  "groupName": "all dependencies",
   "includeForks": true,
-  "labels": ["renovate"],
+  "labels": [
+    "renovate"
+  ],
   "rangeStrategy": "bump"
 }
