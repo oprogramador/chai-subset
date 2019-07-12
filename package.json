@@ -26,7 +26,7 @@
   "homepage": "https://github.com/oprogramador/chai-subset-in-order",
   "devDependencies": {
     "chai": "4.2.0",
-    "coveralls": "3.0.4",
+    "coveralls": "3.0.5",
     "istanbul": "0.4.5",
     "mocha": "6.1.4",
     "mocha-eslint": "5.0.0"
