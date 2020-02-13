@@ -4,6 +4,7 @@
   "description": "Chai plugin to test matching subsets in the same order",
   "main": "lib/chai-subset-in-order.js",
   "scripts": {
+    "lint": "eslint lib test",
     "test": "istanbul cover _mocha",
     "test-only-mocha": "mocha --recursive test",
     "coveralls": "cat ./coverage/lcov.info | coveralls"
