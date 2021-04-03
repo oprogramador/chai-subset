@@ -1,6 +1,6 @@
 {
   "name": "chai-subset-in-order",
-  "version": "2.1.4",
+  "version": "2.0.0",
   "description": "Chai plugin to test matching subsets in the same order",
   "main": "lib/chai-subset-in-order.js",
   "scripts": {
