@@ -29,16 +29,16 @@
     "@semantic-release/commit-analyzer": "^8.0.1",
     "@semantic-release/git": "^9.0.0",
     "@semantic-release/npm": "^7.1.0",
-    "chai": "4.2.0",
-    "coveralls": "3.0.9",
+    "chai": "4.3.4",
+    "coveralls": "3.1.0",
     "istanbul": "0.4.5",
-    "mocha": "7.0.1",
+    "mocha": "7.2.0",
     "mocha-eslint": "6.0.0"
   },
   "files": [
     "lib"
   ],
   "engines": {
-    "node": ">=6"
+    "node": ">=v6.17.1"
   }
 }
