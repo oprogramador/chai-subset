@@ -1,8 +1,6 @@
 sudo: false
 language: node_js
 node_js:
-  - 10
-  - 12
   - 14
   - node
 script:
@@ -12,8 +10,7 @@ script:
 jobs:
   include:
     - stage: deploy
-      on:
-        branch: master
+      if: branch = master
       node_js: 14
       script:
         - yarn install --non-interactive
